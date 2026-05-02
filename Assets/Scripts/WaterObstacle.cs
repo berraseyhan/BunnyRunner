@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public class WaterObstacle
+public class WaterObstacle : Obstacle
 {
-    
+    public override void OnHitPlayer()
+    {
+        Debug.Log("Suya dustun!");
+    }
 }

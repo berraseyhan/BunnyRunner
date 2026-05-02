@@ -1,6 +1,65 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
+using System.Collections;
 
-public class PlayerController
+public class PlayerController : MonoBehaviour
 {
-    
+    [SerializeField] private float jumpForce = 20f;
+    private Rigidbody2D rb;
+    private bool isGrounded = true;
+    private HealthSystem healthSystem;
+    private bool isInvincible = false;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        healthSystem = GetComponent<HealthSystem>();
+    }
+
+    private void Update()
+    {
+        
+        if (Keyboard.current.spaceKey.wasPressedThisFrame && isGrounded)
+        {
+            Jump();
+        }
+    }
+
+    private void Jump()
+    {
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+        isGrounded = false;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Obstacle") && !isInvincible)
+        {
+            collision.gameObject.GetComponent<Obstacle>().OnHitPlayer();
+            healthSystem.TakeDamage();
+            StartCoroutine(InvincibilityTimer());
+        }
+
+        if (collision.gameObject.CompareTag("Carrot"))
+        {
+            collision.gameObject.GetComponent<Carrot>().OnCollect();
+            healthSystem.HealHealth();
+            Destroy(collision.gameObject);
+        }
+    }
+
+    private IEnumerator InvincibilityTimer()
+    {
+        isInvincible = true;
+        yield return new WaitForSeconds(1.5f);
+        isInvincible = false;
+    }
+
 }
