@@ -9,11 +9,21 @@ public class SpawnManager : MonoBehaviour
     private float timer = 0f;
     private float carrotTimer = 0f;
     private float carrotSpawnTime = 8f;
+    public static float gameSpeed = 5f;
+
+    private void Start()
+    {
+        gameSpeed = 5f;
+    }
+
 
     private void Update()
     {
         if (GameManager.Instance == null) return;
         if (GameManager.Instance.IsGameOver()) return;
+
+        gameSpeed += Time.deltaTime * 0.1f;
+        spawnTime = Mathf.Max(0.8f, 2f - (gameSpeed - 5f) * 0.1f);
 
         timer += Time.deltaTime;
         carrotTimer += Time.deltaTime;
@@ -34,13 +44,13 @@ public class SpawnManager : MonoBehaviour
     private void SpawnObstacle()
     {
         int randomIndex = Random.Range(0, obstacles.Length);
-        float yPos = -2.3f;
+        float yPos = -3f;
 
         if (obstacles[randomIndex].name == "WaterObstacle")
-            yPos = -3.01f;
+            yPos = -4.01f;
 
         if (obstacles[randomIndex].name == "BirdObstacle")
-            yPos = (Random.value > 0.5f) ? 0f : -2.3f;
+            yPos = (Random.value > 0.5f) ? -0.35f : -2.75f;
         
         Instantiate(obstacles[randomIndex], new Vector3(15f, yPos, 0f), Quaternion.identity);
     }
@@ -48,6 +58,6 @@ public class SpawnManager : MonoBehaviour
     private void SpawnCarrot()
     {
         if (carrot != null)
-            Instantiate(carrot, new Vector3(15f, -1f, 0f), Quaternion.identity);
+            Instantiate(carrot, new Vector3(15f, -1.36f, 0f), Quaternion.identity);
     }
 }

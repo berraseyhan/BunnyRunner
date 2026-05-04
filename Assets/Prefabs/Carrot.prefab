@@ -81,7 +81,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 2950869812727453837, guid: 6254c47a403893047bdb5b2e8d2d654f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -151,4 +151,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a13de8eaeb6d4941aa7c40d23b94b49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Carrot
-  speed: 5
