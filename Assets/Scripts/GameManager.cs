@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
@@ -7,6 +8,12 @@ public class GameManager : MonoBehaviour
     private int highScore = 0;
     private bool isGameOver = false;
     private UIManager uiManager;
+
+    [Header("Audio Settings")]
+    public AudioSource audioSource;
+    public AudioClip jumpSound;
+    public AudioClip carrotSound;
+    public AudioClip collisionSound;
     private void Awake()
     {
         if (Instance == null)
@@ -62,5 +69,13 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         UnityEngine.SceneManagement.SceneManager.LoadScene(
         UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        if (audioSource != null && clip != null)
+        {
+            audioSource.PlayOneShot(clip);
+        }
     }
 }

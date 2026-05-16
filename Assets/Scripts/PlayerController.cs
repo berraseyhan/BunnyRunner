@@ -7,8 +7,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpForce = 20f;
     private Rigidbody2D rb;
     private bool isGrounded = true;
-    private HealthSystem healthSystem;
-    private bool isInvincible = false;
+    public HealthSystem healthSystem;
+    public bool isInvincible = false;
 
     private void Start()
     {
@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
 
         if (Keyboard.current.spaceKey.wasPressedThisFrame && isGrounded && !GameManager.Instance.IsGameOver())
         {
+            GameManager.Instance.PlaySound(GameManager.Instance.jumpSound);
             Jump();
         }
     }
@@ -38,24 +39,8 @@ public class PlayerController : MonoBehaviour
             isGrounded = true;
         }
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Obstacle") && !isInvincible)
-        {
-            collision.gameObject.GetComponent<Obstacle>().OnHitPlayer();
-            healthSystem.TakeDamage();
-            StartCoroutine(InvincibilityTimer());
-        }
 
-        if (collision.gameObject.CompareTag("Carrot"))
-        {
-            collision.gameObject.GetComponent<Carrot>().OnCollect();
-            healthSystem.HealHealth();
-            Destroy(collision.gameObject);
-        }
-    }
-
-    private IEnumerator InvincibilityTimer()
+    public IEnumerator InvincibilityTimer()
     {
         isInvincible = true;
         Time.timeScale = 0f;

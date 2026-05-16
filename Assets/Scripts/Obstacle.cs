@@ -19,5 +19,25 @@ public abstract class Obstacle : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            PlayerController player = collision.GetComponent<PlayerController>();
+
+            if (player != null && !player.isInvincible)
+            {
+                if (GameManager.Instance != null)
+                {
+                    GameManager.Instance.PlaySound(GameManager.Instance.collisionSound);
+                }
+
+                OnHitPlayer();
+                player.healthSystem.TakeDamage();
+                player.StartCoroutine(player.InvincibilityTimer());
+            }
+        }
+    }
+
     public abstract void OnHitPlayer();
 }
