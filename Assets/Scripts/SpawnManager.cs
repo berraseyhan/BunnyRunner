@@ -13,7 +13,7 @@ public class SpawnManager : MonoBehaviour
 
     private void Start()
     {
-        gameSpeed = 5f;
+        SpawnManager.gameSpeed = 5f;
     }
 
 
@@ -44,13 +44,13 @@ public class SpawnManager : MonoBehaviour
     private void SpawnObstacle()
     {
         int randomIndex = Random.Range(0, obstacles.Length);
-        float yPos = -3f;
+        float yPos = -2.62f;
 
         if (obstacles[randomIndex].name == "WaterObstacle")
             yPos = -4.01f;
 
         if (obstacles[randomIndex].name == "BirdObstacle")
-            yPos = (Random.value > 0.5f) ? -0.35f : -2.75f;
+            yPos = (Random.value > 0.5f) ? -0.35f : -2.63f;
         
         Instantiate(obstacles[randomIndex], new Vector3(15f, yPos, 0f), Quaternion.identity);
     }
@@ -58,6 +58,6 @@ public class SpawnManager : MonoBehaviour
     private void SpawnCarrot()
     {
         if (carrot != null)
-            Instantiate(carrot, new Vector3(15f, -1.36f, 0f), Quaternion.identity);
+            Instantiate(carrot, new Vector3(15f, -0.35f, 0f), Quaternion.identity);
     }
 }

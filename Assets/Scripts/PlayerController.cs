@@ -18,8 +18,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        
-        if (Keyboard.current.spaceKey.wasPressedThisFrame && isGrounded)
+
+        if (Keyboard.current.spaceKey.wasPressedThisFrame && isGrounded && !GameManager.Instance.IsGameOver())
         {
             Jump();
         }
@@ -58,7 +58,14 @@ public class PlayerController : MonoBehaviour
     private IEnumerator InvincibilityTimer()
     {
         isInvincible = true;
-        yield return new WaitForSeconds(1.5f);
+        Time.timeScale = 0f;
+
+        yield return new WaitUntil(() => Keyboard.current.spaceKey.wasPressedThisFrame);
+        if (GameManager.Instance.IsGameOver())
+        {
+            yield break;
+        }
+        Time.timeScale = 1f;
         isInvincible = false;
     }
 

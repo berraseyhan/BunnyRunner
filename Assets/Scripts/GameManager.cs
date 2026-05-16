@@ -12,10 +12,12 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
             Instance = this;
         highScore = PlayerPrefs.GetInt("HighScore", 0);
+
     }
 
     private void Start()
     {
+        isGameOver = false;
         uiManager = Object.FindAnyObjectByType<UIManager>();
         uiManager.UpdateScore(score, highScore);
     }
@@ -31,8 +33,6 @@ public class GameManager : MonoBehaviour
             uiManager.UpdateScore(score, highScore);
         }
     }
-
-
     public int GetScore()
     {
         return score;
@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(
+        UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
 }
