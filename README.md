@@ -11,3 +11,4 @@ Engellere çarptığında oyun durur, oyuncu space e bastığında kaldığı ye
 Canları bittiğinde oyun biter ve game over ekranı gelir. Game over ekranında oyuncunun skoru ve restart butonu vardır.
 Restart butonuna mouse ile tıklandığında oyun yeniden başlar.
 En yüksek 5 skorun yazıldığı high_scores.json dosyası var.
+Zıplama, çarpma ve havuç toplama ses efektleri var.
