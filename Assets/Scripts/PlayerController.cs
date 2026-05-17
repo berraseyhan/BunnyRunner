@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator InvincibilityTimer()
     {
+        if (GameManager.Instance.IsGameOver()) yield break;
         isInvincible = true;
         Time.timeScale = 0f;
 

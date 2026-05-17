@@ -10,7 +10,7 @@ public class SaveSystem : MonoBehaviour
 
     private void Awake()
     {
-        savePath = Application.persistentDataPath + "/scores.json";
+        savePath = Application.persistentDataPath + "/high_scores.json";
     }
 
     public void SaveScore(int score)
@@ -30,7 +30,7 @@ public class SaveSystem : MonoBehaviour
         }
         catch (System.Exception e)
         {
-            Debug.LogError("Kayýt hatasý: " + e.Message);
+            Debug.LogError("Kayit hatasi: " + e.Message);
         }
     }
 
@@ -42,13 +42,13 @@ public class SaveSystem : MonoBehaviour
             {
                 string json = File.ReadAllText(savePath);
                 ScoreData data = JsonUtility.FromJson<ScoreData>(json);
-                highScores = data.scores;
+                highScores = data.highScores;
                 return highScores;
             }
         }
         catch (System.Exception e)
         {
-            Debug.LogError("Yükleme hatasý: " + e.Message);
+            Debug.LogError("Yukleme hatasi: " + e.Message);
         }
 
         return new List<int>();
@@ -67,7 +67,7 @@ public class SaveSystem : MonoBehaviour
         }
         catch (System.Exception e)
         {
-            Debug.LogError("Silme hatasý: " + e.Message);
+            Debug.LogError("Silme hatasi: " + e.Message);
         }
     }
 }
@@ -75,10 +75,10 @@ public class SaveSystem : MonoBehaviour
 [System.Serializable]
 public class ScoreData
 {
-    public List<int> scores;
+    public List<int> highScores;
 
     public ScoreData(List<int> scores)
     {
-        this.scores = scores;
+        this.highScores = scores;
     }
 }

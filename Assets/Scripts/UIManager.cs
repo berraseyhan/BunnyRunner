@@ -35,17 +35,4 @@ public class UIManager : MonoBehaviour
         finalScoreText.text = "Your Score: " + finalScore;
         highScoreText.text = "High Score: " + highScore;
     }
-
-    public void HideGameOver()
-    {
-        gameOverPanel.SetActive(false);
-    }
-
-    public IEnumerator PlayHeartBreakAnimation(int heartIndex)
-    {
-        hearts[heartIndex].sprite = brokenHeart;
-        hearts[heartIndex].transform.localScale = new Vector3(1.5f, 1.5f, 1f);
-        yield return new WaitForSeconds(0.1f);
-        hearts[heartIndex].transform.localScale = Vector3.one;
-    }
 }

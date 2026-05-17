@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -21,6 +22,17 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
             Instance = this;
         highScore = PlayerPrefs.GetInt("HighScore", 0);
+
+        SaveSystem saveSystem = FindAnyObjectByType<SaveSystem>();
+        if (saveSystem != null)
+        {
+            List<int> HighScores = saveSystem.LoadScores();
+            Debug.Log("en yuksek skorlar okundu.");
+            for (int i = 0; i < HighScores.Count; i++)
+            {
+                Debug.Log((i + 1) + ". Skor: " + HighScores[i]);
+            }
+        }
 
     }
 
@@ -59,6 +71,13 @@ public class GameManager : MonoBehaviour
         }
 
         uiManager.ShowGameOver(score, highScore);
+
+        SaveSystem saveSystem = FindAnyObjectByType<SaveSystem>();
+        if (saveSystem != null)
+        {
+            saveSystem.SaveScore(score);
+            Debug.Log("Oyun Bitti: Skor sisteme kaydedildi.");
+        }
     }
 
     public bool IsGameOver()
