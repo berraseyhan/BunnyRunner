@@ -1,3 +1,5 @@
+using System;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
@@ -25,7 +27,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         isGameOver = false;
-        uiManager = Object.FindAnyObjectByType<UIManager>();
+        uiManager = UnityEngine.Object.FindAnyObjectByType<UIManager>();
         uiManager.UpdateScore(score, highScore);
     }
 
